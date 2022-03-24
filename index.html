@@ -15,10 +15,10 @@
         body {
             margin: 0;
             padding: 0;
-            background: #e3e3e6;
+            background: #000;
             font-family: 'Lato', sans-serif;
             font-weight: 300;
-            color: #3d3d3d;
+            color: #f51515;
             font-size: 100%;
             /* 16px is default browser size */
 
@@ -43,7 +43,7 @@
 
         h2 {
             font-weight: 300;
-            color: #63666a;
+            color: #f51515;
             font-size: 2.2em;
             letter-spacing: .06em;
             font-style: italic;
@@ -63,7 +63,7 @@
         }
 
         a {
-            color: #004A8B;
+            color: #117edd;
             font-weight: 400;
             text-decoration: none;
         }
@@ -76,7 +76,7 @@
             padding: 0px 20px 4px 20px;
             font-size: 1.1em;
             line-height: 1.2em;
-            color: #63666a;
+            color: #f51515;
         }
 
         li {
@@ -97,6 +97,7 @@
             font-size: 0.9em;
             font-weight: 300;
             line-height: 1.3em;
+            color: #7a11dd
         }
 
         #map {
@@ -129,6 +130,14 @@
             clear: both;
         }
 
+
+        .leaflet-control-layers-expanded {
+            padding: 6px 10px 6px 6px;
+            color: #000;
+            background: #0000004f;
+            background-clip: border-box;
+        }
+
         /* When browser is 900px wide or less */
         @media screen and (max-width: 900px) {
 
@@ -143,14 +152,14 @@
 <body>
 
     <header>
-        <h1>stuff</h1>
+        <h1>King Crimson "Music Is Our Friend" Tour 2021</h1>
     </header>
     <section>
         <div class="row">
             <div id="map"></div>
 
             <div class="first-column">
-                <h2>Patterns of energy production</h2>
+                <h2>About the band</h2>
                 <p>
                     King Crimson, the greatest band ever, started in London in 1969, with Robert Fripp on guitar and
                     mellotron, Ian McDonald on saxaphone, Greg Lake on bass and vocals,
@@ -168,22 +177,21 @@
                 </p>
                 <p>
                     Current lineup:
-					<ul>
-						<li>Robert Fripp - Guitar</Li>
-						<li>Jakko Jakszyk - Guitar, Vocals</li>
-						<li>Mel Collins - Saxes, Flute</li>
-						<li>Tony Levin - Basses, Stick, Backing vocals</li>
-						<li>Pat Mastelotto - Precussion</li>
-						<li>Gavin Harrison - Precussion</li>
-						<li>Jeremy Stacey - Precussion, Keyboards</li>
-					</ul>
+                    <ul>
+                        <li>Robert Fripp - Guitar</Li>
+                        <li>Jakko Jakszyk - Guitar, Vocals</li>
+                        <li>Mel Collins - Saxes, Flute</li>
+                        <li>Tony Levin - Basses, Stick, Backing vocals</li>
+                        <li>Pat Mastelotto - Precussion</li>
+                        <li>Gavin Harrison - Precussion</li>
+                        <li>Jeremy Stacey - Precussion, Keyboards</li>
+                    </ul>
                 </p>
 
                 <p><b>Social links</b></p>
                 <ul>
                     <li>See my projects on GitHub: <a href="https://github.com/acr288">Aleksandra Craine</a></li>
                     <li>Follow me on twitter: <a href="https://twitter.com/aleks_craine">@aleks_craine</a></li>
-                    <li>Visit my <a href='#'>mapping portfolio</a>.</li>
                 </ul>
 
 
@@ -192,7 +200,8 @@
                 <img class="max-image-width" src="king-crimson-lineup.jpg"
                     title="Electricity and bubbles in a Lexington sunset">
                 <div class="linkbox">
-                    Clockwise from top left: Jakko Jakszyk, Pat Mastelotto, Robert Fripp, Gavin Harrison, Jeremy Stacey, Mel Collins, Tony Levin.
+                    Clockwise from top left: Jakko Jakszyk, Pat Mastelotto, Robert Fripp, Gavin Harrison, Jeremy Stacey,
+                    Mel Collins, Tony Levin. Photo from <i>Rolling Stone</i>
                 </div>
             </div>
         </div>
@@ -215,6 +224,11 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="KC_tour_cities.js"></script>
     <script>
+        //arrays to store links to tour dates
+        var setlist = ["https://www.setlist.fm/setlist/king-crimson/2021/ruth-eckerd-hall-clearwater-fl-5b8fd340.html",
+            "https://www.setlist.fm/setlist/king-crimson/2021/the-pavilion-at-old-school-square-delray-beach-fl-6b8fcec2.html",
+            "https://www.setlist.fm/setlist/king-crimson/2021/st-augustine-amphitheatre-st-augustine-fl-38f31c3.html"
+        ]
         // map options
         var options = {
             center: [38, -95],
@@ -243,29 +257,119 @@
             fillOpacity: .8
         }
 
-        var cityLayer = L.geoJson(cities, {
-            pointToLayer: function (feature, latlng) {
-                return L.circleMarker(latlng, commonStyles);
-            },
-            style: function (feature) {
-                const leg = feature.properties.month
-                console.log(leg)
-                if (leg == "July") {
-                    return {
-                        color: '#f51515',
-                        fillColor: '#f51515'
+        /*        var cityLayer = L.geoJson(cities, {
+                    pointToLayer: function (feature, latlng) {
+                        return L.circleMarker(latlng, commonStyles);
+                    },
+                    style: function (feature) {
+                        const leg = feature.properties.month
+                        //console.log(leg)
+                        if (leg == "July") {
+                            return {
+                                color: '#f51515',
+                                fillColor: '#f51515'
+                            }
+                        } else if (leg == "August") {
+                            return {
+                                color: '#11c156',
+                                fillColor: '#11c156'
+                            }
+                        } else {
+                            return {
+                                color: '#118cc1',
+                                fillColor: '#118cc1'
+                            }
+                        }
+                    },
+                    onEachFeature: function (feature, layer) {
+                        const pointer = feature.properties
+                        //console.log(pointer)
+                        layer.bindTooltip(
+                            `<h4>Tour Date Information</h4><br>${pointer.city}, ${pointer.state}<br>${pointer.date}<br><i>${pointer.venue}</i>`
+                            )
                     }
-                } else if (leg == "August") {
-                    return {
-                        color: '#11c156',
-                        fillColor: '#11c156'
+                }).addTo(map);
+        */
+
+        var counter = 0
+
+
+        cities.features.forEach(e => {
+            let prop = e.properties
+            
+            prop["set_url"] = setlist[counter]
+            
+            counter = counter + 1
+        })
+
+
+        var layerGenerator = function (data, month) {
+
+            var layer = L.geoJson(data, {
+                pointToLayer: function (feature, latlng) {
+                    return L.circleMarker(latlng, commonStyles);
+                },
+                filter: function (feature) {
+                    if (feature.properties.month == month) {
+                        return feature;
                     }
-                } else {
-                    return {
-                        color: '#118cc1',
-                        fillColor: '#118cc1'
+                },
+
+                style: function (feature) {
+                    const leg = feature.properties.month
+                    //console.log(leg)
+                    if (leg == "July") {
+                        return {
+                            color: '#f51515',
+                            fillColor: '#f51515'
+                        }
+                    } else if (leg == "August") {
+                        return {
+                            color: '#11c156',
+                            fillColor: '#11c156'
+                        }
+                    } else {
+                        return {
+                            color: '#118cc1',
+                            fillColor: '#118cc1'
+                        }
                     }
+                },
+                onEachFeature: function (feature, layer) {
+                    const pointer = feature.properties
+                    //console.log(pointer)
+                    layer.bindTooltip(
+                        `<h4>Tour Date Information</h4><br>${pointer.city}, ${pointer.state}<br>${pointer.date}<br><i>${pointer.venue}</i>`
+                    )
                 }
-            }
+            }).addTo(map);
+
+
+            return layer
+        }
+
+
+
+
+        const augustTour = layerGenerator(cities, "August")
+        const julyTour = layerGenerator(cities, "July")
+        const sepTour = layerGenerator(cities, "September")
+
+
+        var legendTours = {
+            "<b style='color: #f51515'>July Tours</b>": julyTour,
+            "<b style='color: #11c156'>August Tours</b>": augustTour,
+            "<b style='color: #118cc1'>September Tours</b>": sepTour
+        }
+
+        L.control.layers(null, legendTours, {
+            collapsed: false
         }).addTo(map);
+
+
+
+       
+
+
+
     </script>
