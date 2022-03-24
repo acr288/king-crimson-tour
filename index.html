@@ -10,15 +10,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,900i" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bitter&family=Kanit:wght@100;400&family=Space+Mono&display=swap" rel="stylesheet"> 
 
     <style>
         body {
             margin: 0;
             padding: 0;
             background: #000;
-            font-family: 'Lato', sans-serif;
+            font-family: 'Kanit', sans-serif;
             font-weight: 300;
-            color: #f51515;
+            color: #b6b4b8;
             font-size: 100%;
             /* 16px is default browser size */
 
@@ -34,17 +37,19 @@
         h1 {
             font-weight: 900;
             font-size: 2.8em;
-            font-style: italic;
+            font-family: 'Anton', sans-serif;
             /* The em unit. 3x the current size */
             letter-spacing: .02em;
             margin: 5px 0;
-            /* text-transform: uppercase; */
+            color: #f51515
+                /* text-transform: uppercase; */
         }
 
         h2 {
             font-weight: 300;
-            color: #f51515;
+            color: #b6b4b8;
             font-size: 2.2em;
+            font-family: 'Bitter', serif;
             letter-spacing: .06em;
             font-style: italic;
             margin: 5px 0;
@@ -76,7 +81,7 @@
             padding: 0px 20px 4px 20px;
             font-size: 1.1em;
             line-height: 1.2em;
-            color: #f51515;
+            color: #b6b4b8;
         }
 
         li {
@@ -94,10 +99,11 @@
         .linkbox {
             margin: 3px 0 20px 0;
             display: block;
+            font-family: 'Space Mono', monospace;
             font-size: 0.9em;
             font-weight: 300;
             line-height: 1.3em;
-            color: #7a11dd
+            color: #b6b4b8
         }
 
         #map {
@@ -168,7 +174,7 @@
                     included Mel Collins, Peter Giles,
                     Gordon Haskell, Andy McCulloch, Keith Tippet, Boz Burell, Ian Wallace, Bill Bruford, John Wetton,
                     David Cross, Richard Palmer-James Adrian Belew, Tony Levin, Pat Mastelotto, and Trey Gunn.
-                    Robert Fripp remained the only constant member, and bandleader throughout KC's 52-year
+                    Robert Fripp remained the only constant member, and bandleader throughout KC's 53-year
                     history.
                     King Crimson released a total of 13 studio albums, numerous live albums, and side projects.
                     According to the manager David Singleton, this is likely the last U.S tour the band will ever
@@ -207,7 +213,7 @@
         </div>
     </section>
     <footer>
-        <hr>
+        <p>Map authored by Aleksandra Craine<br>Data source: <a href="https://www.dgmlive.com/" target= "_blank">DGM Live</a></p>
 
         <a href="https://newmapsplus.github.io">
             <img src="https://newmapsplus.github.io/assets/graphics/logo-2018-nmp-75px-h-gray.png"
@@ -224,11 +230,56 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="KC_tour_cities.js"></script>
     <script>
-        //arrays to store links to tour dates
+        //array to store links to setlists, to be added to the data
         var setlist = ["https://www.setlist.fm/setlist/king-crimson/2021/ruth-eckerd-hall-clearwater-fl-5b8fd340.html",
             "https://www.setlist.fm/setlist/king-crimson/2021/the-pavilion-at-old-school-square-delray-beach-fl-6b8fcec2.html",
-            "https://www.setlist.fm/setlist/king-crimson/2021/st-augustine-amphitheatre-st-augustine-fl-38f31c3.html"
+            "https://www.setlist.fm/setlist/king-crimson/2021/st-augustine-amphitheatre-st-augustine-fl-38f31c3.html",
+            "https://www.setlist.fm/setlist/king-crimson/2021/mainstage-at-seneff-arts-plaza-orlando-fl-738f3a09.html",
+            "https://www.setlist.fm/setlist/king-crimson/2021/fox-theater-atlanta-ga-1b8f3144.html",
+            "https://www.setlist.fm/setlist/king-crimson/2021/ryman-auditorium-nashville-tn-1b8f2d2c.html",
+            "https://www.setlist.fm/setlist/king-crimson/2021/will-rogers-auditorium-fort-worth-tx-6b8f2616.html",
+            "https://www.setlist.fm/setlist/king-crimson/2021/h-e-b-center-at-cedar-park-cedar-park-tx-338f1cdd.html",
+            "https://www.setlist.fm/setlist/king-crimson/2021/fiddlers-green-amphitheatre-greenwood-village-co-338f10ed.html",
+            "https://www.setlist.fm/setlist/king-crimson/2021/sandy-amphitheater-sandy-city-ut-1b8f093c.html",
+            "https://www.setlist.fm/setlist/king-crimson/2021/concord-pavilion-concord-ca-7b8f028c.html",
+            "https://www.setlist.fm/setlist/king-crimson/2021/greek-theatre-los-angeles-ca-b8f796e.html",
+            "https://www.setlist.fm/setlist/king-crimson/2021/salt-river-grand-ballroom-talking-stick-resort-and-casino-scottsdale-az-238f745b.html",
+            "https://www.setlist.fm/setlist/king-crimson/2021/saratoga-performing-arts-center-saratoga-springs-ny-538c9769.html",
+            "https://www.setlist.fm/setlist/king-crimson/2021/symphony-hall-springfield-ma-538c93a5.html",
+            "https://www.setlist.fm/setlist/king-crimson/2021/constellation-brands--marvin-sands-performing-arts-center-canandaigua-ny-2b8c807e.html",
+            "https://www.setlist.fm/setlist/king-crimson/2021/artpark-amphitheater-lewiston-ny-1b8cfd84.html",
+            "https://www.setlist.fm/setlist/king-crimson/2021/meadow-brook-amphitheatre-rochester-hills-mi-38cf553.html",
+            "https://www.setlist.fm/setlist/king-crimson/2021/the-pavilion-highland-park-il-7b8cf240.html",
+            "https://www.setlist.fm/setlist/king-crimson/2021/miller-high-life-theatre-milwaukee-wi-6b8ce25a.html",
+            "https://www.setlist.fm/setlist/king-crimson/2021/jacobs-pavilion-at-nautica-cleveland-oh-4b8cdb2a.html",
+            "https://www.setlist.fm/setlist/king-crimson/2021/rose-music-center-at-the-heights-huber-heights-oh-138cd159.html",
+            "https://www.setlist.fm/setlist/king-crimson/2021/pnc-bank-arts-center-holmdel-nj-4b8cc77e.html",
+            "https://www.setlist.fm/setlist/king-crimson/2021/westville-music-bowl-new-haven-ct-6b8c3e9e.html",
+            "https://www.setlist.fm/setlist/king-crimson/2021/td-pavilion-at-the-mann-philadelphia-pa-3b8c2c0c.html",
+            "https://www.setlist.fm/setlist/king-crimson/2021/beacon-theatre-new-york-ny-3b8c207c.html",
+            "https://www.setlist.fm/setlist/king-crimson/2021/leader-bank-pavilion-boston-ma-538c1fb1.html",
+            "https://www.setlist.fm/setlist/king-crimson/2021/the-anthem-washington-dc-2b8c1496.html"
         ]
+
+        //array to store links to reviews, to be added to the data
+        var downloads = ["https://www.dgmlive.com/tour-dates/2506",
+            "https://www.dgmlive.com/tour-dates/2507", "https://www.dgmlive.com/tour-dates/2508",
+            "https://www.dgmlive.com/tour-dates/2509", "https://www.dgmlive.com/tour-dates/2510",
+            "https://www.dgmlive.com/tour-dates/2511", "https://www.dgmlive.com/tour-dates/2512",
+            "https://www.dgmlive.com/tour-dates/2513", "https://www.dgmlive.com/tour-dates/2514",
+            "https://www.dgmlive.com/tour-dates/2515", "https://www.dgmlive.com/tour-dates/2516",
+            "https://www.dgmlive.com/tour-dates/2517", "https://www.dgmlive.com/tour-dates/2518",
+            "https://www.dgmlive.com/tour-dates/2519", "https://www.dgmlive.com/tour-dates/2520",
+            "https://www.dgmlive.com/tour-dates/2521", "https://www.dgmlive.com/tour-dates/2522",
+            "https://www.dgmlive.com/tour-dates/2523", "https://www.dgmlive.com/tour-dates/2524",
+            "https://www.dgmlive.com/tour-dates/2525", "https://www.dgmlive.com/tour-dates/2526",
+            "https://www.dgmlive.com/tour-dates/2527", "https://www.dgmlive.com/tour-dates/2528",
+            "https://www.dgmlive.com/tour-dates/2529", "https://www.dgmlive.com/tour-dates/2530",
+            "https://www.dgmlive.com/tour-dates/2531", "https://www.dgmlive.com/tour-dates/2532",
+            "https://www.dgmlive.com/tour-dates/2533"
+        ]
+
+
         // map options
         var options = {
             center: [38, -95],
@@ -251,12 +302,13 @@
                 maxZoom: 19
             }).addTo(map);
 
+        //basic styles for circles
         var commonStyles = {
             weight: 1,
             stroke: 1,
             fillOpacity: .8
         }
-
+        //add data to map, symbolize
         /*        var cityLayer = L.geoJson(cities, {
                     pointToLayer: function (feature, latlng) {
                         return L.circleMarker(latlng, commonStyles);
@@ -291,18 +343,21 @@
                 }).addTo(map);
         */
 
+        //append the urls to setlists and downloads to the json
         var counter = 0
 
 
         cities.features.forEach(e => {
             let prop = e.properties
-            
+
             prop["set_url"] = setlist[counter]
-            
+            prop["downloads"] = downloads[counter]
+
             counter = counter + 1
         })
 
 
+        //add data to map, with three different layers by month; add tooltip
         var layerGenerator = function (data, month) {
 
             var layer = L.geoJson(data, {
@@ -325,8 +380,8 @@
                         }
                     } else if (leg == "August") {
                         return {
-                            color: '#11c156',
-                            fillColor: '#11c156'
+                            color: '#941de7',
+                            fillColor: '#941de7'
                         }
                     } else {
                         return {
@@ -338,8 +393,8 @@
                 onEachFeature: function (feature, layer) {
                     const pointer = feature.properties
                     //console.log(pointer)
-                    layer.bindTooltip(
-                        `<h4>Tour Date Information</h4><br>${pointer.city}, ${pointer.state}<br>${pointer.date}<br><i>${pointer.venue}</i>`
+                    layer.bindPopup(
+                        `<h4>${pointer.city}, ${pointer.state}</h4><br>${pointer.date}<br><i>${pointer.venue}</i><br> <a href="${pointer.set_url}" target="_blank">Setlist</a><br><a href="${pointer.downloads}" target="_blank">Reviews and Downloads</a>`
                     )
                 }
             }).addTo(map);
@@ -350,26 +405,19 @@
 
 
 
-
+        //three created layers
         const augustTour = layerGenerator(cities, "August")
         const julyTour = layerGenerator(cities, "July")
         const sepTour = layerGenerator(cities, "September")
 
-
+        //create legend
         var legendTours = {
-            "<b style='color: #f51515'>July Tours</b>": julyTour,
-            "<b style='color: #11c156'>August Tours</b>": augustTour,
-            "<b style='color: #118cc1'>September Tours</b>": sepTour
+            "<b style='color: #f51515'>July Dates</b>": julyTour,
+            "<b style='color: #941de7'>August Dates</b>": augustTour,
+            "<b style='color: #118cc1'>September Dates</b>": sepTour
         }
 
         L.control.layers(null, legendTours, {
             collapsed: false
         }).addTo(map);
-
-
-
-       
-
-
-
     </script>
