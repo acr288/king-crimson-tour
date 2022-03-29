@@ -20,8 +20,8 @@
             padding: 0;
             background: #000;
             font-family: 'Kanit', sans-serif;
-            font-weight: 300;
-            color: #b6b4b8;
+            font-weight: 500;
+            color: #bebbc0;
             font-size: 100%;
             /* 16px is default browser size */
 
@@ -32,6 +32,9 @@
         footer {
             width: 80%;
             margin: 10px auto;
+            font-family: 'Space Mono', monospace;
+            line-height: 1.5em;
+            
         }
 
         h1 {
@@ -46,8 +49,8 @@
         }
 
         h2 {
-            font-weight: 300;
-            color: #b6b4b8;
+            font-weight: 500;
+            color: #bebbc0;
             font-size: 2.2em;
             font-family: 'Bitter', serif;
             letter-spacing: .06em;
@@ -56,12 +59,13 @@
         }
 
         h3 {
-            font-weight: 300i;
+            font-weight: 500i;
             font-size: 1.5em;
             margin-bottom: 5px;
         }
 
         p {
+            font-family: 'Kanit', sans-serif;
             font-size: 1.3em;
             line-height: 1.8em;
             margin-bottom: 5px;
@@ -79,6 +83,7 @@
 
         ul {
             padding: 0px 20px 4px 20px;
+            font-family: 'Kanit', sans-serif;
             font-size: 1.1em;
             line-height: 1.2em;
             color: #b6b4b8;
@@ -144,6 +149,15 @@
             background-clip: border-box;
         }
 
+        .popup {
+            background: #050505;
+            color: #b6b4b8;
+            font-family: 'Kanit', sans-serif;
+            font-size: 1.3em;
+            line-height: 1.5em;
+            padding: 10px 20px 4px 20px;
+        }
+
         /* When browser is 900px wide or less */
         @media screen and (max-width: 900px) {
 
@@ -182,7 +196,7 @@
 
                 </p>
                 <p>
-                    Current lineup:
+                    <b>Current lineup:</b>
                     <ul>
                         <li>Robert Fripp - Guitar</Li>
                         <li>Jakko Jakszyk - Guitar, Vocals</li>
@@ -213,18 +227,9 @@
         </div>
     </section>
     <footer>
-        <p>Map authored by Aleksandra Craine<br>Data source: <a href="https://www.dgmlive.com/" target= "_blank">DGM Live</a></p>
+        <div>Map authored by Aleksandra Craine<br>Software used: QGIS 3.16, VSCODE 1.56.2<br>Tour and band information: <a href="https://www.dgmlive.com/" target= "_blank">DGM Live</a></div>
 
-        <a href="https://newmapsplus.github.io">
-            <img src="https://newmapsplus.github.io/assets/graphics/logo-2018-nmp-75px-h-gray.png"
-                alt="University of Kentucky Geography">
-        </a>
-
-        <a href="https://uky-gis.github.io">
-            <img src="https://newmapsplus.github.io/assets/graphics/logo-2018-geography-75px-h.png"
-                alt="University of Kentucky Geography">
-        </a>
-
+       
     </footer>
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
@@ -394,7 +399,7 @@
                     const pointer = feature.properties
                     //console.log(pointer)
                     layer.bindPopup(
-                        `<h4>${pointer.city}, ${pointer.state}</h4><br>${pointer.date}<br><i>${pointer.venue}</i><br> <a href="${pointer.set_url}" target="_blank">Setlist</a><br><a href="${pointer.downloads}" target="_blank">Reviews and Downloads</a>`
+                        `<div class="popup"><h4>${pointer.city}, ${pointer.state}</h4><br>${pointer.date}<br><i>${pointer.venue}</i><br> <a href="${pointer.set_url}" target="_blank">Setlist</a><br><a href="${pointer.downloads}" target="_blank">Reviews and Downloads</a></div>`
                     )
                 }
             }).addTo(map);
