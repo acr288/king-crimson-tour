@@ -44,7 +44,8 @@
             /* The em unit. 3x the current size */
             letter-spacing: .02em;
             margin: 5px 0;
-            color: #f51515
+            color: #f51515;
+            text-shadow: 0 0 2px #000;
                 /* text-transform: uppercase; */
         }
 
@@ -156,6 +157,15 @@
             font-size: 1.3em;
             line-height: 1.5em;
             padding: 10px 20px 4px 20px;
+        }
+
+        .leaflet-popup-content-wrapper, .leaflet-popup-tip  {
+            background:#050505;
+            border:1px solid #f51515;
+        }
+
+        .leaflet-popup-content-wrapper h4 {
+            margin: 0;
         }
 
         /* When browser is 900px wide or less */
